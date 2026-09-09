@@ -1,0 +1,33 @@
+{
+  "name": "projects/js",
+  "title": "JS++",
+  "template": "templates/template.html",
+  "content": "content/projects/js.html",
+  "output": "public/projects/js.html",
+  "minify": false,
+  "minify-version": 0,
+  "pagination": false,
+  "pagination-items-per-page": 0,
+  "pagination-template": "",
+  "pagination-separator": "",
+  "pagination-pages": 0,
+  "dependencies": [
+    "content/projects/js.html",
+    "templates/footer.html",
+    "templates/head.html",
+    "templates/header.html",
+    "templates/template.html"
+  ],
+  "reqs": [
+    "public/assets/css/site.css",
+    "public/assets/images/banners/js.webp",
+    "public/docs/index.html",
+    "public/docs/my-access.html",
+    "public/favicon.svg",
+    "public/index.html",
+    "public/projects/cortex.html",
+    "public/projects/index.html",
+    "public/projects/tscc.html",
+    "public/projects/warden.html"
+  ]
+}

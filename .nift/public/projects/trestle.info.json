@@ -1,0 +1,34 @@
+{
+  "name": "projects/trestle",
+  "title": "Trestle",
+  "template": "templates/template.html",
+  "content": "content/projects/trestle.html",
+  "output": "public/projects/trestle.html",
+  "minify": false,
+  "minify-version": 0,
+  "pagination": false,
+  "pagination-items-per-page": 0,
+  "pagination-template": "",
+  "pagination-separator": "",
+  "pagination-pages": 0,
+  "dependencies": [
+    "content/projects/trestle.html",
+    "templates/footer.html",
+    "templates/head.html",
+    "templates/header.html",
+    "templates/template.html"
+  ],
+  "reqs": [
+    "public/assets/css/site.css",
+    "public/assets/images/banners/trestle.webp",
+    "public/docs/index.html",
+    "public/docs/my-access.html",
+    "public/favicon.svg",
+    "public/index.html",
+    "public/projects/cortex.html",
+    "public/projects/index.html",
+    "public/projects/nift.html",
+    "public/projects/watchpost.html",
+    "public/projects/webfleet.html"
+  ]
+}

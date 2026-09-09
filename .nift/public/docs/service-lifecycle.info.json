@@ -1,0 +1,29 @@
+{
+  "name": "docs/service-lifecycle",
+  "title": "service-lifecycle",
+  "template": "templates/template.html",
+  "content": "content/docs/service-lifecycle.html",
+  "output": "public/docs/service-lifecycle.html",
+  "minify": false,
+  "minify-version": 0,
+  "pagination": false,
+  "pagination-items-per-page": 0,
+  "pagination-template": "",
+  "pagination-separator": "",
+  "pagination-pages": 0,
+  "dependencies": [
+    "content/docs/service-lifecycle.html",
+    "templates/footer.html",
+    "templates/head.html",
+    "templates/header.html",
+    "templates/template.html"
+  ],
+  "reqs": [
+    "public/assets/css/site.css",
+    "public/docs/hosting.html",
+    "public/docs/index.html",
+    "public/favicon.svg",
+    "public/index.html",
+    "public/projects/index.html"
+  ]
+}

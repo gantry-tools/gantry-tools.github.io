@@ -1,0 +1,109 @@
+{
+  "tracked": [
+    {
+      "name": "/",
+      "title": "index",
+      "template": "templates/template.html"
+    },
+    {
+      "name": "projects/nift",
+      "title": "Nift",
+      "template": "templates/template.html"
+    },
+    {
+      "name": "projects/cortex",
+      "title": "Cortex",
+      "template": "templates/template.html"
+    },
+    {
+      "name": "projects/warden",
+      "title": "Warden",
+      "template": "templates/template.html"
+    },
+    {
+      "name": "projects/trestle",
+      "title": "Trestle",
+      "template": "templates/template.html"
+    },
+    {
+      "name": "projects/watchpost",
+      "title": "Watchpost",
+      "template": "templates/template.html"
+    },
+    {
+      "name": "projects/webfleet",
+      "title": "Webfleet",
+      "template": "templates/template.html"
+    },
+    {
+      "name": "projects/jsonic",
+      "title": "Jsonic++",
+      "template": "templates/template.html"
+    },
+    {
+      "name": "projects/minify",
+      "title": "Minify++",
+      "template": "templates/template.html"
+    },
+    {
+      "name": "projects/markup",
+      "title": "Markup++",
+      "template": "templates/template.html"
+    },
+    {
+      "name": "projects/tscc",
+      "title": "TSCC",
+      "template": "templates/template.html"
+    },
+    {
+      "name": "projects/js",
+      "title": "JS++",
+      "template": "templates/template.html"
+    },
+    {
+      "name": "projects/pict",
+      "title": "Pict",
+      "template": "templates/template.html"
+    },
+    {
+      "name": "projects/index",
+      "title": "index",
+      "template": "templates/template.html"
+    },
+    {
+      "name": "docs/index",
+      "title": "index",
+      "template": "templates/template.html"
+    },
+    {
+      "name": "docs/my-access",
+      "title": "my-access",
+      "template": "templates/template.html"
+    },
+    {
+      "name": "docs/service-lifecycle",
+      "title": "service-lifecycle",
+      "template": "templates/template.html"
+    },
+    {
+      "name": "docs/desktop-launchers",
+      "title": "desktop-launchers",
+      "template": "templates/template.html"
+    },
+    {
+      "name": "docs/hosting",
+      "title": "hosting",
+      "template": "templates/template.html"
+    },
+    {
+      "name": "docs/integrations",
+      "title": "integrations",
+      "template": "templates/template.html"
+    },
+    {
+      "name": "docs/fleet",
+      "title": "fleet",
+      "template": "templates/template.html"
+    }
+  ]
+}

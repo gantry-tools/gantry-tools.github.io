@@ -1,0 +1,34 @@
+{
+  "name": "docs/index",
+  "title": "index",
+  "template": "templates/template.html",
+  "content": "content/docs/index.html",
+  "output": "public/docs/index.html",
+  "minify": false,
+  "minify-version": 0,
+  "pagination": false,
+  "pagination-items-per-page": 0,
+  "pagination-template": "",
+  "pagination-separator": "",
+  "pagination-pages": 0,
+  "dependencies": [
+    "content/docs/index.html",
+    "templates/footer.html",
+    "templates/head.html",
+    "templates/header.html",
+    "templates/template.html"
+  ],
+  "reqs": [
+    "public/assets/css/site.css",
+    "public/docs/desktop-launchers.html",
+    "public/docs/fleet.html",
+    "public/docs/hosting.html",
+    "public/docs/index.html",
+    "public/docs/integrations.html",
+    "public/docs/my-access.html",
+    "public/docs/service-lifecycle.html",
+    "public/favicon.svg",
+    "public/index.html",
+    "public/projects/index.html"
+  ]
+}

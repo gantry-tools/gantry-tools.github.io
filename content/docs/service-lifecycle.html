@@ -1,0 +1,68 @@
+<article class="docs-page">
+<header class="shell docs-article-head"><a class="back-link" href="@pathto('docs/index')">← Documentation</a><span class="eyebrow">Services</span><h1>Service lifecycle API</h1><p>The self-hosted Gantry applications are converging on one predictable service namespace. Cortex is the current reference implementation: foreground execution stays simple, while <code>project service …</code> handles persistence, lifecycle, logs and status when you want the app to behave like a normal host service.</p></header>
+<section class="shell prose">
+<h2>The command surface</h2><p>The reference service API is:</p>
+<pre><code>project service install [flags]
+project service start
+project service stop
+project service restart
+project service status
+project service logs [--follow]
+project service uninstall</code></pre>
+<p>On Cortex, <code>cortex service</code> with no verb is equivalent to <code>cortex service status</code>. Unknown service verbs exit with usage error status rather than silently falling back to foreground execution.</p>
+<div class="note"><strong>Convergence, not fiction.</strong> Cortex implements the complete surface documented here. Other Gantry services should use the same names and semantics as they adopt the shared service API, but a project’s own documentation remains authoritative until parity is complete.</div>
+
+<h2><code>service install</code></h2><p>Install creates and enables a per-user systemd unit and starts the service. On Cortex the unit is written to <code>~/.config/systemd/user/cortex.service</code> and is managed through <code>systemctl --user</code>; installation does not require a system-wide daemon or root-owned unit.</p>
+<p>The install command accepts the runtime configuration that must survive terminal closure and reboot:</p>
+<div class="doc-table-wrap"><table><thead><tr><th>Flag</th><th>Meaning</th></tr></thead><tbody>
+<tr><td><code>--host</code></td><td>HTTP bind host. Cortex defaults to <code>127.0.0.1</code>; <code>CORTEX_HOST</code> may provide the default and the CLI wins.</td></tr>
+<tr><td><code>--port</code></td><td>HTTP port, validated in the normal TCP port range. Cortex defaults to <code>7331</code>; <code>CORTEX_PORT</code> may provide the default and the CLI wins.</td></tr>
+<tr><td><code>--listen</code></td><td>Legacy single-address form. It cannot be combined with <code>--host</code> or <code>--port</code>.</td></tr>
+<tr><td><code>--root</code></td><td>Workspace/application root recorded in the unit. Cortex requires an absolute path and defaults to the user home directory.</td></tr>
+<tr><td><code>--data</code></td><td>Persistent application data directory recorded in the unit. Cortex requires an absolute path and defaults under the user config directory.</td></tr>
+<tr><td><code>--public-origin</code></td><td>Canonical external origin used when the browser-facing URL differs from the bind address, typically behind a reverse proxy.</td></tr>
+<tr><td><code>--trust-proxy</code></td><td>Accept forwarding metadata from the directly connected trusted reverse proxy. Do not turn this on merely because the service has a public hostname.</td></tr>
+</tbody></table></div>
+<p>Cortex resolves its executable to a stable absolute path before writing the unit. It refuses an unmanaged foreign unit instead of overwriting it. Reinstall is transactional: the existing managed unit and its enablement/activity state are inspected first, and a failed change rolls back to the previous reproducible state.</p>
+<p>Install also verifies readiness. After start or restart, Cortex polls systemd state and the public read-only <code>GET /api/health</code> endpoint. Success requires the expected <code>{"ok":true}</code> health contract; a random process returning some other 2xx JSON on the same port cannot impersonate a healthy Cortex service. A failed fresh install is stopped, disabled and cleaned up so the next attempt starts from a known state.</p>
+
+<h2>Start, stop and restart</h2><p><code>start</code>, <code>stop</code> and <code>restart</code> act on the managed user unit. They are intentionally boring: the service manager owns process lifetime, so closing the shell that issued the command does not stop the application.</p>
+<pre><code>cortex service stop
+cortex service start
+cortex service restart</code></pre>
+<p>A service that was installed to a non-default port keeps that listener because the resolved host/port are written into the unit command rather than inherited from whatever shell happens to start systemd later.</p>
+
+<h2>Status is operational, not decorative</h2><p>Cortex status reads the managed unit, queries systemd and performs a live health check. It reports:</p>
+<pre><code>unit:    cortex.service
+file:    ~/.config/systemd/user/cortex.service
+enabled: enabled
+active:  active
+pid:     12345
+version: ...
+listen:  127.0.0.1:7331
+url:     http://127.0.0.1:7331
+health:  ok</code></pre>
+<p>Status exits non-zero if the managed unit is missing, failed/inactive when it should be active, invalid, or active but not healthy. That makes it useful in scripts and support checks instead of merely printing whatever systemd says.</p>
+
+<h2>Logs</h2><p><code>service logs</code> reads the service journal through the user unit. Add <code>--follow</code> to stream new output:</p>
+<pre><code>cortex service logs
+cortex service logs --follow</code></pre>
+<p>This is deliberately a first-class command so a user does not need to remember the exact <code>journalctl --user-unit …</code> incantation for every Gantry service.</p>
+
+<h2>Uninstall does not mean delete your data</h2><p><code>service uninstall</code> stops and removes the managed service unit while preserving Cortex configuration, conversations and application data. Removing the service is a lifecycle operation, not a destructive reset.</p>
+
+<h2>User services and lingering</h2><p>A systemd user service runs as your OS user. It can survive the terminal that installed it, but whether the user manager survives logout depends on the host. For an always-on server, check and enable lingering when appropriate:</p>
+<pre><code>loginctl show-user "$USER" -p Linger
+loginctl enable-linger "$USER"</code></pre>
+<p>Cortex currently documents <code>service install --system</code> as unsupported: user mode is the default. That is preferable to pretending a system-wide mode exists when its account, credential and keyring semantics have not been solved.</p>
+
+<h2>Reverse-proxy flags</h2><p>Bind the Gantry service to loopback whenever a local reverse proxy is the public entry point. Then set the externally visible origin and trust proxy metadata only for the direct proxy relationship:</p>
+<pre><code>cortex service install \
+  --host 127.0.0.1 \
+  --port 7331 \
+  --public-origin https://cortex.example.com \
+  --trust-proxy</code></pre>
+<p>See <a href="@pathto('docs/hosting')">Serving & deployment</a> for complete Caddy and nginx examples.</p>
+
+<h2>The Gantry rule</h2><blockquote>The CLI should make the common operational action obvious. The operating system service manager still owns the process.</blockquote><p>Gantry projects should not invent a different daemon manager, background PID convention or vocabulary for every application. The shared service namespace gives users one set of muscle memory while letting each project keep the runtime flags it actually needs.</p>
+</section></article>

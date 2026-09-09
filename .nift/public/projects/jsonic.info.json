@@ -1,0 +1,33 @@
+{
+  "name": "projects/jsonic",
+  "title": "Jsonic++",
+  "template": "templates/template.html",
+  "content": "content/projects/jsonic.html",
+  "output": "public/projects/jsonic.html",
+  "minify": false,
+  "minify-version": 0,
+  "pagination": false,
+  "pagination-items-per-page": 0,
+  "pagination-template": "",
+  "pagination-separator": "",
+  "pagination-pages": 0,
+  "dependencies": [
+    "content/projects/jsonic.html",
+    "templates/footer.html",
+    "templates/head.html",
+    "templates/header.html",
+    "templates/template.html"
+  ],
+  "reqs": [
+    "public/assets/css/site.css",
+    "public/assets/images/banners/jsonic.webp",
+    "public/docs/index.html",
+    "public/docs/my-access.html",
+    "public/favicon.svg",
+    "public/index.html",
+    "public/projects/index.html",
+    "public/projects/markup.html",
+    "public/projects/minify.html",
+    "public/projects/nift.html"
+  ]
+}

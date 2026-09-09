@@ -1,0 +1,36 @@
+<article class="docs-page">
+<header class="shell docs-article-head"><a class="back-link" href="@pathto('docs/index')">← Documentation</a><span class="eyebrow">Desktop</span><h1>Desktop & dock launchers</h1><p>Cortex, Warden, Trestle, Watchpost and Webfleet are web applications, but that does not mean they have to feel like bookmarks. A stable launcher can give each one its own dock/taskbar entry while the service remains an ordinary self-hosted web app.</p></header>
+<section class="shell prose">
+<h2>Choose the URL first</h2><p>A launcher can point directly at a fixed endpoint such as <code>http://localhost:7332/</code>, but a <code>my.*</code> address is usually more durable:</p>
+<pre><code>my.crtx.dev
+my.warden.cv
+my.trestle.cv
+my.watchpost.cv
+my.webfleet.cv</code></pre>
+<p>With no explicit instances configured, those addresses still go straight to localhost. If the machine later moves or you add multiple deployments, the operating-system shortcut does not need to change—the browser-side launcher handles the choice.</p>
+
+<h2>Linux: a <code>.desktop</code> application</h2><p>For a local Chromium-family browser, application mode gives the Gantry web app a dedicated window rather than a normal tab. Put a desktop entry in <code>~/.local/share/applications/</code>:</p>
+<pre><code>[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Warden
+Comment=Open Warden
+Exec=chromium --app=https://my.warden.cv/
+Terminal=false
+Icon=/home/you/.local/share/icons/warden.png
+Categories=Development;
+StartupNotify=false</code></pre>
+<p>Run <code>update-desktop-database ~/.local/share/applications</code> if your desktop environment needs it, then launch Warden from the application menu and pin it to the dock normally. Use an absolute icon path or an icon name installed into the current icon theme.</p>
+<h3>Wayland window grouping</h3><p>Native Wayland browsers may not use X11 <code>WM_CLASS</code> matching for an <code>--app</code> window. If the Gantry window is grouped under the main browser icon, inspect the browser’s actual application identity or install the web app/PWA through the browser so it receives a stable app ID. Do not cargo-cult a <code>StartupWMClass</code> value from another machine: Chromium-derived app IDs can depend on the installed app/profile.</p>
+<h3>Installed browser app vs <code>--app=URL</code></h3><p><code>--app=URL</code> is the zero-setup option. An installed PWA/browser app can integrate more cleanly with menus and dock identity because Chromium can launch the installed application by app ID rather than treating the URL as an arbitrary app-mode window. Both approaches still talk to the same self-hosted Gantry service.</p>
+
+<h2>macOS</h2><p>The lowest-friction path is the browser’s “install app” or “create shortcut/open as window” support, which creates an application bundle that can live in Applications and be pinned to the Dock. Point it at the project’s <code>my.*</code> address when you want the endpoint to remain configurable.</p><p>If you use a custom wrapper instead, keep it deliberately thin: its job is to open the URL in an app-like window, not to become a second updater or configuration store for the Gantry service.</p>
+
+<h2>Windows</h2><p>Chromium-family browsers can install a site as an app and create Start Menu/taskbar integration. Alternatively create a shortcut whose target is the browser executable plus <code>--app=https://my.warden.cv/</code>. The service itself remains separately installed and updated; the shortcut is only navigation.</p><p>For a remote deployment, use an HTTPS hostname or the corresponding <code>my.*</code> launcher rather than baking a private IP into shortcuts on every workstation.</p>
+
+<h2>Local app, remote app, same UX</h2><p>This pattern is one reason Gantry can keep web UIs without giving up desktop ergonomics. The browser shell handles rendering; the Gantry service handles files, terminals, monitoring or backend state. You can run the service on the same computer, a NUC on the LAN, a VPN-connected server or a public HTTPS host without changing the product UI.</p>
+
+<h2>Security and browser profiles</h2><p>A desktop launcher is not an authentication bypass. It opens the same URL with the same application authentication and browser storage as any other visit. If you separate personal and work Gantry deployments, separate browser profiles can also separate cookies and each origin’s local launcher configuration.</p>
+
+<h2>Good defaults</h2><ul><li>Use the <code>my.*</code> address when you want a stable human entry point.</li><li>Use app/PWA mode when you want a separate dock/taskbar identity.</li><li>Keep the Gantry service bound to localhost unless the deployment actually needs remote access.</li><li>Do not duplicate passwords, API keys or service configuration in the desktop shortcut.</li></ul>
+</section></article>

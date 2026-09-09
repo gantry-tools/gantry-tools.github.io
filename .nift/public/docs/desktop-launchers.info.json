@@ -1,0 +1,28 @@
+{
+  "name": "docs/desktop-launchers",
+  "title": "desktop-launchers",
+  "template": "templates/template.html",
+  "content": "content/docs/desktop-launchers.html",
+  "output": "public/docs/desktop-launchers.html",
+  "minify": false,
+  "minify-version": 0,
+  "pagination": false,
+  "pagination-items-per-page": 0,
+  "pagination-template": "",
+  "pagination-separator": "",
+  "pagination-pages": 0,
+  "dependencies": [
+    "content/docs/desktop-launchers.html",
+    "templates/footer.html",
+    "templates/head.html",
+    "templates/header.html",
+    "templates/template.html"
+  ],
+  "reqs": [
+    "public/assets/css/site.css",
+    "public/docs/index.html",
+    "public/favicon.svg",
+    "public/index.html",
+    "public/projects/index.html"
+  ]
+}

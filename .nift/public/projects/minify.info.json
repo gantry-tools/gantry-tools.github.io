@@ -1,0 +1,33 @@
+{
+  "name": "projects/minify",
+  "title": "Minify++",
+  "template": "templates/template.html",
+  "content": "content/projects/minify.html",
+  "output": "public/projects/minify.html",
+  "minify": false,
+  "minify-version": 0,
+  "pagination": false,
+  "pagination-items-per-page": 0,
+  "pagination-template": "",
+  "pagination-separator": "",
+  "pagination-pages": 0,
+  "dependencies": [
+    "content/projects/minify.html",
+    "templates/footer.html",
+    "templates/head.html",
+    "templates/header.html",
+    "templates/template.html"
+  ],
+  "reqs": [
+    "public/assets/css/site.css",
+    "public/assets/images/banners/minify.webp",
+    "public/docs/index.html",
+    "public/docs/my-access.html",
+    "public/favicon.svg",
+    "public/index.html",
+    "public/projects/index.html",
+    "public/projects/jsonic.html",
+    "public/projects/markup.html",
+    "public/projects/nift.html"
+  ]
+}

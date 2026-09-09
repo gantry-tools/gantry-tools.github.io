@@ -1,0 +1,94 @@
+<article class="docs-page">
+<header class="shell docs-article-head"><a class="back-link" href="@pathto('docs/index')">← Documentation</a><span class="eyebrow">Hosting</span><h1>Serving & deploying self-hosted Gantry projects</h1><p>The deployment model is deliberately progressive: run on localhost first, install a user service when the process should persist, put a reverse proxy in front when you need a hostname/TLS, and only add clustering or distributed nodes when a single machine stops being the right architecture.</p></header>
+<section class="shell prose">
+<h2>1. Start on loopback</h2><p>For a single-machine installation, keep the service bound to <code>127.0.0.1</code>. The corresponding <code>my.*</code> launcher already assumes the standard localhost port when no explicit instance is configured.</p>
+<div class="doc-table-wrap"><table><thead><tr><th>Service</th><th>Default local URL</th><th>Launcher</th></tr></thead><tbody>
+<tr><td>Cortex</td><td><code>http://localhost:7331</code></td><td><code>my.crtx.dev</code></td></tr>
+<tr><td>Warden</td><td><code>http://localhost:7332</code></td><td><code>my.warden.cv</code></td></tr>
+<tr><td>Trestle</td><td><code>http://localhost:7333</code></td><td><code>my.trestle.cv</code></td></tr>
+<tr><td>Watchpost</td><td><code>http://localhost:7334</code></td><td><code>my.watchpost.cv</code></td></tr>
+<tr><td>Watchpost Agent</td><td><code>http://localhost:7335</code></td><td><code>agent.watchpost.cv</code></td></tr>
+<tr><td>Webfleet</td><td><code>http://localhost:7336</code></td><td><code>my.webfleet.cv</code></td></tr>
+</tbody></table></div>
+<p>Binding to loopback is a feature, not a limitation: it means the application is not accidentally listening on every LAN/public interface while you are still treating it as a local tool.</p>
+
+<h2>2. Install the service when it should outlive your shell</h2><p>Where the project implements the Gantry service API, install it through the project executable rather than backgrounding a foreground process manually. Cortex, for example:</p>
+<pre><code>cortex service install --host 127.0.0.1 --port 7331
+cortex service status</code></pre>
+<p>The user service can start with your systemd user manager and survives the terminal that launched it. On an always-on server, enable user lingering when the service must keep running after logout:</p>
+<pre><code>loginctl enable-linger "$USER"</code></pre>
+<p>See <a href="@pathto('docs/service-lifecycle')">Service lifecycle API</a> for install/restart/status/logs/uninstall semantics.</p>
+
+<h2>3. Give the service a real hostname</h2><p>For remote access, create DNS for a hostname such as <code>cortex.example.com</code> and put a reverse proxy on the same host or trusted front-end machine. Keep the Gantry application itself on loopback where possible:</p>
+<pre><code>Browser
+  │ HTTPS
+  ▼
+cortex.example.com :443
+  │ reverse proxy on loopback
+  ▼
+127.0.0.1:7331</code></pre>
+<p>This keeps TLS certificates, HTTP/2/3 and public listener concerns in a purpose-built proxy while the Gantry service stays focused on the application.</p>
+
+<h2>Caddy example</h2><p>Caddy is an excellent fit when you want automatic HTTPS and a very small configuration. Assuming DNS points at the host:</p>
+<pre><code>cortex.example.com {
+    reverse_proxy 127.0.0.1:7331
+}</code></pre>
+<p>Then install/reconfigure Cortex with the canonical public origin and proxy trust:</p>
+<pre><code>cortex service install \
+  --host 127.0.0.1 \
+  --port 7331 \
+  --public-origin https://cortex.example.com \
+  --trust-proxy</code></pre>
+<p>Caddy forwards WebSocket upgrades automatically, which is useful for Gantry applications with terminals, realtime updates or long-lived browser connections.</p>
+
+<h2>nginx example</h2><p>For nginx, preserve the original host/scheme and WebSocket upgrade headers. A reusable configuration looks like:</p>
+<pre><code>map $http_upgrade $connection_upgrade {
+    default upgrade;
+    ''      close;
+}
+
+server {
+    listen 80;
+    server_name cortex.example.com;
+    return 301 https://$host$request_uri;
+}
+
+server {
+    listen 443 ssl http2;
+    server_name cortex.example.com;
+
+    ssl_certificate     /etc/letsencrypt/live/cortex.example.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/cortex.example.com/privkey.pem;
+
+    location / {
+        proxy_pass http://127.0.0.1:7331;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection $connection_upgrade;
+    }
+}</code></pre>
+<p>Use your normal ACME/certificate workflow; the important Gantry-specific part is that the app remains loopback-bound and knows the canonical public origin when the project supports that setting.</p>
+
+<h2><code>--trust-proxy</code> is a trust boundary</h2><p>Do not enable proxy trust merely because the app is behind “something.” On Cortex, forwarded identity/scheme information is accepted only from the direct loopback peer when proxy trust is enabled. Keep the reverse proxy and service relationship explicit; do not expose the backend listener publicly and then trust arbitrary forwarding headers from the internet.</p>
+
+<h2>Private network / VPN deployment</h2><p>You do not need to publish a Gantry service to the internet. A private DNS name over Tailscale, WireGuard, a corporate VPN or a LAN is often the better deployment. You can terminate TLS internally, or let the VPN provide the network trust boundary and still keep application authentication enabled.</p>
+<p>Add that private hostname/IP to the appropriate <code>my.*</code> launcher so the same human entry point works across your local, NUC and remote deployments.</p>
+
+<h2>Firewalls and exposed ports</h2><p>If the reverse proxy is on the same machine, expose only the proxy ports (normally 80/443) through the host firewall and keep the Gantry port on loopback. If the proxy is on another machine, bind the Gantry service to the private interface and firewall the port so only the proxy/VPN subnet can reach it.</p>
+
+<h2>Persistent data and upgrades</h2><p>Treat the executable and persistent data as separate concerns where the project supports a data path. Back up the data directory/database, not merely the binary. Before replacing a release, stop or restart through the service API rather than killing an arbitrary PID, and use <code>service status</code> plus the application’s own health/backup guidance after the upgrade.</p>
+<p>Trestle deserves extra care because it can hold application data and uploaded files; SQLite and PostgreSQL deployments have different backup procedures. Project-specific docs take precedence over generic Gantry examples.</p>
+
+<h2>Multiple instances on one host</h2><p>Multiple deployments can coexist by using separate ports and, where applicable, separate roots/data directories. Give each a meaningful external hostname or my.* instance name:</p>
+<pre><code>Local dev      localhost:7331
+Home NUC       cortex.home.example
+Production     cortex.prod.example</code></pre>
+<p>The my.* launcher is then the human routing layer, while DNS/reverse proxies remain the network routing layer.</p>
+
+<h2>Scaling beyond one process</h2><p>Clustering is not a checkbox to turn on pre-emptively. Trestle, Watchpost and Webfleet have credible high-availability/scale reasons to cluster, while Watchpost and Webfleet additionally benefit from distributed machine/region placement. The single-node service path should stay intact when those modes arrive.</p>
+
+<h2>Deployment checklist</h2><ul><li>Bind to loopback unless remote access requires otherwise.</li><li>Use the project service API for persistent process lifecycle.</li><li>Use a real hostname and TLS for browser access outside localhost.</li><li>Set <code>--public-origin</code> and proxy trust only when the project and topology require them.</li><li>Preserve authentication even on private networks.</li><li>Back up persistent state separately from the executable.</li><li>Monitor the host with Watchpost and the public endpoint with Webfleet when the deployment matters.</li></ul>
+</section></article>
