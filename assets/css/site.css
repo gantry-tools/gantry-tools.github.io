@@ -1,0 +1,560 @@
+:root{
+  --bg:#101514;
+  --panel:#171d1b;
+  --panel-2:#1b221f;
+  --panel-3:#121715;
+  --line:#303a36;
+  --line-strong:#4b5a53;
+  --text:#eee9da;
+  --muted:#a5afa9;
+  --green:#8cc9a6;
+  --cream:#e8ddb8;
+  --max:1180px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.62}
+a{color:inherit}
+img{display:block;max-width:100%}
+code,pre{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+.shell{width:min(calc(100% - 40px),var(--max));margin-inline:auto}
+
+.site-header{position:sticky;top:0;z-index:30;background:rgba(16,21,20,.95);border-bottom:1px solid var(--line);backdrop-filter:blur(14px)}
+.nav-shell{height:68px;display:flex;align-items:center;justify-content:space-between;gap:28px}
+.brand{text-decoration:none;font-weight:850;letter-spacing:.015em;font-size:1.03rem}
+nav{display:flex;align-items:center;gap:26px}
+nav a,.footer-links a{text-decoration:none;color:var(--muted);font-size:.9rem}
+nav a:hover,.footer-links a:hover{color:var(--text)}
+
+.kicker,.eyebrow{color:var(--green);font-size:.74rem;font-weight:850;text-transform:uppercase;letter-spacing:.18em}
+.button{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 17px;border:1px solid var(--green);background:var(--green);color:#0c120f;text-decoration:none;font-weight:850;font-size:.9rem;white-space:nowrap}
+.button:hover{filter:brightness(1.06)}
+.button--quiet{background:#151b19;color:var(--text);border-color:#4a5751}
+.text-link{display:inline-block;margin-top:12px;color:var(--cream);font-weight:800;text-decoration:none}
+.text-link:hover,.link-row a:hover{text-decoration:underline}
+
+/* Homepage */
+.hero{padding-top:30px}
+.hero-art{border:1px solid #39443f;background:#0b0f0e;overflow:hidden;aspect-ratio:3/1}
+.hero-art>img{width:100%;height:100%;object-fit:cover}
+.hero-copy-below{padding:42px 0 30px;border-bottom:1px solid var(--line)}
+.hero-copy-below h1{font-size:clamp(2.8rem,5.7vw,6rem);line-height:.97;letter-spacing:-.052em;max-width:960px;margin:.38rem 0 1.25rem}
+.hero-copy-grid{display:grid;grid-template-columns:minmax(0,1.45fr) auto;align-items:end;gap:38px}
+.hero-copy-grid>p{color:#bac3bd;max-width:760px;font-size:1.08rem;margin:0}
+.hero-actions,.link-row{display:flex;gap:12px;flex-wrap:wrap}
+.hero-actions{justify-content:flex-end}
+.intro{padding-block:92px;border-bottom:1px solid var(--line)}
+.intro>div{max-width:900px;margin-left:90px}
+.intro h2,.section-heading h2,.docs-start h2,.project-map h2{font-size:clamp(2rem,4vw,3.7rem);line-height:1.05;letter-spacing:-.038em;margin:.4rem 0 1.1rem}
+.intro p{max-width:800px;color:#b8c0bb;font-size:1.05rem}
+.projects,.more-tools,.lifecycle{padding-block:92px}
+.section-heading{display:flex;align-items:end;justify-content:space-between;gap:34px;margin-bottom:32px}
+.section-heading>p{max-width:440px;color:var(--muted);margin:0}
+
+.project-card{display:grid;grid-template-columns:230px 1fr;min-height:230px;border:1px solid var(--line);background:var(--panel);margin-top:14px;position:relative;overflow:hidden}
+.project-card:before{content:"";position:absolute;left:-1px;top:-1px;width:42px;height:4px;background:var(--green);z-index:2}
+.project-card--reverse{grid-template-columns:1fr 230px}
+.project-card--reverse .project-badge-wrap{order:2}
+.project-badge-wrap{background:#111614;aspect-ratio:1/1;overflow:hidden}
+.project-badge-wrap img{width:100%;height:100%;object-fit:cover}
+.project-card-copy{align-self:center;padding:32px 40px}
+.project-card h3{font-size:2rem;margin:.25rem 0 .45rem}
+.project-card p{margin:0;color:#aeb7b1;max-width:720px}
+.link-row{margin-top:20px}
+.link-row a{font-size:.88rem;font-weight:800;text-decoration:none;color:var(--cream)}
+.all-projects-link{display:flex;justify-content:flex-end;margin-top:24px}
+
+.tool-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.tool-chip{display:grid;grid-template-columns:72px 1fr auto;align-items:center;gap:16px;padding:14px;border:1px solid var(--line);background:var(--panel);text-decoration:none}
+.tool-chip:hover{border-color:var(--line-strong)}
+.tool-chip img{width:64px;height:64px;object-fit:contain}
+.tool-chip span{display:flex;flex-direction:column}
+.tool-chip small{color:var(--muted)}
+.tool-chip b{font-size:1.2rem;color:var(--green)}
+.lifecycle{border-top:1px solid var(--line)}
+.lifecycle-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.lifecycle-grid>div{border:1px solid var(--line);background:var(--panel);padding:28px}
+.lifecycle-grid strong{font-size:1.2rem;color:var(--cream)}
+.lifecycle-grid p{color:var(--muted);margin:.55rem 0 0}
+.docs-callout{margin-block:36px 105px;padding:38px 42px;border:1px solid var(--line);background:var(--panel);display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:40px}
+.docs-callout h2{font-size:clamp(1.9rem,3vw,3rem);line-height:1.05;letter-spacing:-.035em;margin:.35rem 0 .7rem}
+.docs-callout p{color:var(--muted);margin:0;max-width:780px}
+.docs-callout .button{min-width:190px}
+.docs-callout code,.prose code{color:var(--cream)}
+.philosophy{margin-block:70px 118px;border-left:4px solid var(--green);padding:34px 40px;background:#151b19}
+.philosophy blockquote{margin:.4rem 0 0;font:700 clamp(1.65rem,3.25vw,3.25rem)/1.16 Georgia,serif;max-width:970px;color:var(--cream)}
+
+/* Project directory */
+.page-head{padding-block:82px 52px;border-bottom:1px solid var(--line)}
+.page-head h1{font-size:clamp(3rem,7vw,6rem);line-height:.95;letter-spacing:-.05em;margin:.35rem 0 1rem}
+.page-head p{max-width:850px;color:#b8c0bb;font-size:1.08rem}
+.project-map{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding-block:46px 0}
+.project-map>div{padding:28px;border:1px solid var(--line);background:var(--panel)}
+.project-map h2{font-size:1.8rem;margin:.35rem 0 .65rem}
+.project-map p{color:var(--muted);margin:0}
+.directory-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;padding-block:52px 110px}
+.directory-card{display:grid;grid-template-columns:92px 1fr auto;align-items:center;gap:20px;padding:18px;border:1px solid var(--line);background:var(--panel);text-decoration:none}
+.directory-card:hover{border-color:var(--line-strong)}
+.directory-card img{width:84px;height:84px;object-fit:cover;border:1px solid #3c4842}
+.directory-card span{display:flex;flex-direction:column;min-width:0}
+.directory-card small{color:var(--green);text-transform:uppercase;letter-spacing:.13em;font-weight:800;font-size:.68rem}
+.directory-card strong{font-size:1.35rem;margin:.12rem 0}
+.directory-card em{font-style:normal;color:var(--muted);font-size:.86rem;line-height:1.42}
+.directory-card b{color:var(--green);font-size:1.2rem}
+
+/* Project pages */
+.project-hero{padding-top:30px}
+.back-link{display:inline-block;margin-bottom:20px;color:var(--muted);text-decoration:none}
+.back-link:hover{color:var(--text)}
+.banner-frame{width:min(66%,760px);margin-inline:auto;border:1px solid #39443f;background:#0b0f0e}
+.banner-frame img{width:100%;height:auto;aspect-ratio:16/9;object-fit:cover}
+.project-title{max-width:980px;margin-inline:auto;display:flex;justify-content:space-between;align-items:end;gap:30px;padding:34px 0 50px;border-bottom:1px solid var(--line)}
+.project-title h1{font-size:clamp(3rem,7vw,6.5rem);line-height:.9;letter-spacing:-.052em;margin:.4rem 0 1rem}
+.project-title p{color:#b7c0ba;max-width:720px;font-size:1.08rem;margin:0}
+.project-site{flex:none}
+.project-overview{padding-block:80px;border-bottom:1px solid var(--line);max-width:940px}
+.project-overview h2{font-size:clamp(2.1rem,4vw,3.8rem);line-height:1.04;letter-spacing:-.04em;margin:.4rem 0 1.15rem}
+.project-overview p{color:#b8c0bb;font-size:1.06rem;max-width:850px}
+.capability-section,.workflow-section,.connections-section,.usecase-section{padding-block:82px;border-bottom:1px solid var(--line)}
+.capability-grid,.usecase-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.capability-grid>div,.usecase-grid>div{border:1px solid var(--line);background:var(--panel);padding:25px}
+.capability-grid strong,.usecase-grid strong{font-size:1.08rem;color:var(--cream)}
+.capability-grid p,.usecase-grid p{margin:.5rem 0 0;color:var(--muted)}
+.workflow-list{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.workflow-list li{display:grid;grid-template-columns:72px 1fr;gap:18px;padding:20px 0;border-bottom:1px solid var(--line)}
+.workflow-list span{font:700 1.45rem/1 Georgia,serif;color:#53635b;padding-top:.35rem}
+.workflow-list p{margin:0;color:#b8c0bb}
+.connection-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.connection-card{border:1px solid var(--line);background:var(--panel);padding:26px;display:flex;flex-direction:column}
+.connection-card h3{font-size:1.55rem;margin:.25rem 0 .55rem}
+.connection-card p{color:var(--muted);margin:0 0 1.1rem;flex:1}
+.connection-card a{color:var(--cream);font-weight:800;text-decoration:none}
+.connection-card a:hover{text-decoration:underline}
+.access-panel{display:grid;grid-template-columns:.9fr 1.5fr;gap:48px;padding:48px;border:1px solid var(--line);background:var(--panel);margin-block:88px}
+.access-panel h2{font-size:clamp(2rem,3.6vw,3.4rem);line-height:1.05;letter-spacing:-.035em;margin:.4rem 0}
+.access-panel p{color:#b8c0bb;font-size:1.02rem;margin-top:0}
+.access-panel code{color:var(--cream)}
+.project-cta{display:flex;align-items:center;justify-content:space-between;gap:30px;margin-block:70px 118px;padding-top:48px;border-top:1px solid var(--line)}
+.project-cta h2{font-size:clamp(2rem,3.6vw,3.6rem);line-height:1.05;letter-spacing:-.035em;margin:.35rem 0 .7rem}
+.project-cta p{color:var(--muted);margin:0}
+
+/* Documentation */
+.docs-start{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:end;padding-block:46px;border-bottom:1px solid var(--line)}
+.docs-start p{color:var(--muted);margin:0}
+.docs-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;padding-block:52px 110px}
+.docs-card{border:1px solid var(--line);background:var(--panel);padding:30px;text-decoration:none}
+.docs-card:hover{border-color:var(--line-strong)}
+.docs-card>span{color:var(--green);text-transform:uppercase;letter-spacing:.15em;font-size:.7rem;font-weight:800}
+.docs-card h2{font-size:1.65rem;margin:.42rem 0 .68rem}
+.docs-card p{color:var(--muted);margin:0 0 1rem}
+.docs-card b{color:var(--cream);font-size:.88rem}
+.docs-article-head{padding-block:54px 44px;border-bottom:1px solid var(--line)}
+.docs-article-head .back-link{margin-bottom:34px}
+.docs-article-head h1{font-size:clamp(2.8rem,6vw,5.3rem);line-height:.98;letter-spacing:-.05em;max-width:920px;margin:.35rem 0 1rem}
+.docs-article-head p{max-width:850px;color:#b8c0bb;font-size:1.08rem}
+.prose{max-width:940px;padding-block:58px 118px}
+.prose h2{font-size:clamp(1.8rem,3vw,2.65rem);line-height:1.1;letter-spacing:-.03em;margin:3.1rem 0 1rem}
+.prose h2:first-child{margin-top:0}
+.prose h3{font-size:1.35rem;margin:2.2rem 0 .65rem;color:var(--cream)}
+.prose p,.prose li{color:#b8c0bb;font-size:1.02rem}
+.prose strong{color:var(--text)}
+.prose a{color:var(--cream)}
+.prose pre{overflow:auto;background:#0b0f0e;border:1px solid var(--line);padding:21px;margin:21px 0}
+.prose pre code{color:#d9e4dc;font-size:.89rem}
+.prose blockquote{margin:28px 0;border-left:4px solid var(--green);padding:18px 24px;background:var(--panel);font:700 1.5rem/1.35 Georgia,serif;color:var(--cream)}
+.note{margin:28px 0;padding:21px;border:1px solid #4a5751;background:var(--panel);color:#b8c0bb}
+.note strong{color:var(--cream)}
+.doc-table-wrap{overflow:auto;margin:21px 0}
+.prose table{width:100%;border-collapse:collapse;border:1px solid var(--line);background:var(--panel)}
+.prose th,.prose td{text-align:left;padding:13px 15px;border-bottom:1px solid var(--line);vertical-align:top}
+.prose th{color:var(--cream);font-size:.76rem;text-transform:uppercase;letter-spacing:.1em}
+.prose td{color:#b8c0bb}
+
+.site-footer{border-top:1px solid var(--line);padding-block:40px}
+.footer-grid{display:flex;justify-content:space-between;gap:30px}
+.site-footer p{color:var(--muted);margin:.35rem 0 0}
+.footer-links{display:flex;gap:22px;align-items:center}
+
+@media(max-width:860px){
+  .hero-copy-grid,.docs-callout,.project-map,.docs-start{grid-template-columns:1fr}
+  .hero-actions{justify-content:flex-start}
+  .project-card,.project-card--reverse{grid-template-columns:190px 1fr}
+  .project-card--reverse .project-badge-wrap{order:0}
+  .project-card--reverse{grid-template-columns:190px 1fr}
+  .project-badge-wrap{order:0!important}
+  .directory-grid,.docs-grid,.connection-grid,.capability-grid,.usecase-grid,.lifecycle-grid{grid-template-columns:1fr}
+  .access-panel{grid-template-columns:1fr}
+}
+
+@media(max-width:620px){
+  .shell{width:min(calc(100% - 26px),var(--max))}
+  .nav-shell{height:60px}
+  nav{gap:14px}
+  nav a{font-size:.82rem}
+  .hero{padding-top:13px}
+  .hero-art{aspect-ratio:2.1/1}
+  .hero-copy-below{padding-top:30px}
+  .hero-copy-below h1{font-size:2.65rem}
+  .intro{padding-block:66px}
+  .intro>div{margin-left:0}
+  .section-heading{align-items:flex-start;flex-direction:column}
+  .project-card,.project-card--reverse{grid-template-columns:1fr}
+  .project-badge-wrap{aspect-ratio:1/1}
+  .project-card-copy{padding:26px}
+  .tool-grid{grid-template-columns:1fr}
+  .banner-frame{width:100%;max-width:none}
+  .project-title{align-items:flex-start;flex-direction:column;padding-bottom:42px}
+  .project-overview,.capability-section,.workflow-section,.connections-section,.usecase-section{padding-block:64px}
+  .access-panel{padding:28px;margin-block:64px}
+  .workflow-list li{grid-template-columns:46px 1fr}
+  .docs-callout{padding:28px}
+  .project-cta,.footer-grid{align-items:flex-start;flex-direction:column}
+  .directory-card{grid-template-columns:74px 1fr auto}
+  .directory-card img{width:68px;height:68px}
+  .footer-links{flex-wrap:wrap}
+}
+
+/* Catalog homepage refinement */
+:root{--max:1380px}
+.hero{padding-top:30px}
+.hero-art{aspect-ratio:auto;overflow:hidden;border:1px solid #39443f;background:#0b0f0e}
+.hero-art>img{display:block;width:100%;height:auto;object-fit:contain}
+.home-intro{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(300px,.75fr);gap:56px;padding-block:38px 44px;border-bottom:1px solid var(--line)}
+.home-intro h1{font-size:clamp(2.8rem,5.2vw,5.7rem);line-height:.98;letter-spacing:-.05em;max-width:930px;margin:.4rem 0 1.1rem}
+.home-intro-copy>p{max-width:810px;color:#b8c0bb;font-size:1.08rem}
+.home-benefits{border-left:1px solid var(--line);padding-left:34px;display:grid;gap:16px;align-content:center}
+.home-benefits>div{display:grid;grid-template-columns:34px 1fr;align-items:center;gap:14px;color:#c4ccc7}
+.home-benefits b{color:var(--green);font-size:1.35rem;text-align:center}
+.home-benefits span{font-size:.98rem}
+.intro{padding-block:70px}
+.catalog{padding-block:76px 86px}
+.catalog .section-heading{align-items:end}
+.catalog-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:12px}
+.catalog-card{border:1px solid var(--line);background:var(--panel);min-width:0;display:flex;flex-direction:column}
+.catalog-art{display:block;aspect-ratio:1/1;overflow:hidden;border-bottom:1px solid var(--line);background:#0f1413}
+.catalog-art img{width:100%;height:100%;object-fit:cover}
+.catalog-copy{padding:18px 16px 17px;display:flex;flex-direction:column;min-height:218px}
+.catalog-copy .eyebrow{font-size:.62rem;letter-spacing:.12em}
+.catalog-copy h3{font-size:1.35rem;margin:.35rem 0 .45rem}
+.catalog-copy p{font-size:.9rem;line-height:1.45;color:#aeb7b1;margin:0 0 1rem}
+.catalog-links{margin-top:auto;display:flex;flex-direction:column;gap:5px}
+.catalog-links a{font-size:.82rem;color:var(--green);font-weight:800;text-decoration:none}
+.catalog-links a:hover{text-decoration:underline}
+.lifecycle-strip{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-bottom:74px}
+.lifecycle-strip>div{display:grid;grid-template-columns:54px 1fr;gap:16px;padding:28px 22px;border-right:1px solid var(--line)}
+.lifecycle-strip>div:last-child{border-right:0}
+.lifecycle-strip p{margin:0;color:var(--muted);font-size:.9rem;line-height:1.5}
+.lifecycle-strip strong{color:var(--text);font-size:1rem}
+.lifecycle-icon{color:var(--green);font-size:1.7rem;line-height:1}
+.docs-callout-button{white-space:nowrap;flex:none}
+
+/* Make the my.* entry point impossible to miss on service project pages. */
+.project-access-strip{max-width:980px;margin:0 auto 28px;padding:24px 28px;border:1px solid #4b6258;background:#141d1a;display:grid;grid-template-columns:minmax(220px,.75fr) 1.4fr;gap:34px;align-items:start}
+.project-access-strip h2{font-size:clamp(1.65rem,2.6vw,2.4rem);line-height:1.08;margin:.35rem 0 .6rem}
+.project-access-strip p{margin:0;color:#b8c0bb}
+.project-access-strip p+p{margin-top:.75rem}
+.project-access-strip code{color:var(--cream)}
+.project-access-strip .text-link{margin-top:10px}
+.access-panel.project-access-duplicate{display:none}
+
+/* Docs breadcrumb and category are intentionally separate rows. */
+.docs-article-head .back-link{display:block;margin-bottom:22px}
+.docs-article-head .eyebrow{display:block;margin-bottom:10px}
+
+@media(max-width:1280px){
+  .catalog-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+}
+@media(max-width:900px){
+  .home-intro{grid-template-columns:1fr}
+  .home-benefits{border-left:0;border-top:1px solid var(--line);padding:24px 0 0}
+  .catalog-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .lifecycle-strip{grid-template-columns:repeat(2,1fr)}
+  .lifecycle-strip>div:nth-child(2){border-right:0}
+  .lifecycle-strip>div:nth-child(-n+2){border-bottom:1px solid var(--line)}
+  .project-access-strip{grid-template-columns:1fr}
+}
+@media(max-width:760px){
+  .hero-art{aspect-ratio:auto}
+  .hero-art>img{width:100%;height:auto;object-fit:contain}
+  .home-intro{gap:28px;padding-block:30px 38px}
+  .home-intro h1{font-size:2.55rem}
+  .catalog-grid{grid-template-columns:1fr}
+  .catalog-card{display:grid;grid-template-columns:44% 1fr}
+  .catalog-art{aspect-ratio:1/1;border-bottom:0;border-right:1px solid var(--line)}
+  .catalog-copy{min-height:0;padding:18px}
+  .catalog-copy p{font-size:.88rem}
+  .lifecycle-strip{grid-template-columns:1fr}
+  .lifecycle-strip>div{border-right:0;border-bottom:1px solid var(--line)}
+  .lifecycle-strip>div:last-child{border-bottom:0}
+  .project-access-strip{padding:22px;margin-bottom:20px}
+}
+@media(max-width:480px){
+  .catalog-card{grid-template-columns:1fr}
+  .catalog-art{border-right:0;border-bottom:1px solid var(--line)}
+}
+
+
+/* Catalog polish: match the accepted mockup more closely. */
+.catalog-grid{align-items:stretch}
+.catalog-card{
+  padding:10px;
+  border-radius:5px;
+  background:var(--panel);
+  display:grid;
+  grid-template-rows:auto 1fr;
+  height:100%;
+}
+.catalog-art{
+  margin:0;
+  border:1px solid #3a4741;
+  border-radius:4px;
+  overflow:hidden;
+  aspect-ratio:1/1;
+  background:#0f1413;
+}
+.catalog-art img{width:100%;height:100%;object-fit:cover}
+.catalog-copy{
+  padding:13px 4px 4px;
+  display:grid;
+  grid-template-rows:2.2em auto minmax(5.2em,1fr) auto;
+  min-height:235px;
+}
+.catalog-copy .eyebrow{
+  display:flex;
+  align-items:flex-end;
+  min-height:2.2em;
+  line-height:1.25;
+}
+.catalog-copy h3{
+  margin:.28rem 0 .42rem;
+  min-height:1.7em;
+}
+.catalog-copy p{
+  margin:0;
+  min-height:5.2em;
+}
+.catalog-links{align-self:end;margin-top:10px}
+
+/* Directory uses only square artwork, never circular badge treatments. */
+.directory-card img{
+  aspect-ratio:1/1;
+  object-fit:cover;
+  border-radius:0;
+}
+
+/* Project banners retain the asset's own geometry. Pict is deliberately wider like the mockup. */
+.banner-frame img{aspect-ratio:auto;height:auto;object-fit:contain}
+
+/* Lifecycle icons use the same outlined mint language as the mockup. */
+.lifecycle-strip>div{grid-template-columns:64px 1fr;align-items:start}
+.lifecycle-icon{
+  width:42px;
+  height:42px;
+  color:var(--green);
+  fill:none;
+  stroke:currentColor;
+  stroke-width:2.4;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+
+/* Preserve the hero artwork exactly; no stretching or cropping at any viewport. */
+.hero-art{aspect-ratio:auto}
+.hero-art>img{width:100%;height:auto;object-fit:contain}
+
+/* The package favicon itself has no page-coloured backing shape. */
+
+@media(max-width:760px){
+  .catalog-card{display:grid;grid-template-columns:1fr;padding:10px}
+  .catalog-copy{min-height:0;grid-template-rows:auto auto auto auto}
+  .catalog-copy .eyebrow,.catalog-copy h3,.catalog-copy p{min-height:0}
+  .catalog-art{border-right:1px solid #3a4741}
+}
+
+
+/* Charcoal palette and strict catalogue alignment. */
+:root{
+  --bg:#0b0d0e;
+  --panel:#151819;
+  --panel-2:#1a1d1e;
+  --panel-3:#101213;
+  --line:#2b2f30;
+  --line-strong:#444a4b;
+  --text:#f0ede4;
+  --muted:#a5aaa7;
+  --green:#88c9a5;
+  --cream:#e9deb9;
+}
+body{background:var(--bg)}
+.site-header{background:rgba(11,13,14,.96)}
+.button--quiet{background:#141718}
+.hero-art,.catalog-art,.banner-frame{background:#0d0f10}
+.project-access-strip{background:#161a1b;border-color:#3d4c46}
+.philosophy{background:#141718}
+.catalog-card,.directory-card,.tool-chip,.docs-card,
+.capability-grid>div,.usecase-grid>div,.connection-card,
+.lifecycle-grid>div,.project-map>div,.docs-callout{background:var(--panel)}
+
+/* Every featured card uses the same four text rows so titles, descriptions and links line up. */
+.catalog-copy{
+  display:grid;
+  grid-template-rows:2.8rem 2.15rem 6.65rem auto;
+  min-height:0;
+  padding:14px 4px 5px;
+}
+.catalog-copy .eyebrow{
+  height:2.8rem;
+  min-height:2.8rem;
+  display:block;
+  line-height:1.35;
+  overflow:hidden;
+}
+.catalog-copy h3{
+  height:2.15rem;
+  min-height:2.15rem;
+  margin:0;
+  display:flex;
+  align-items:flex-start;
+  line-height:1.2;
+}
+.catalog-copy p{
+  height:6.65rem;
+  min-height:6.65rem;
+  margin:0;
+  overflow:hidden;
+}
+.catalog-links{
+  margin:0;
+  align-self:end;
+}
+
+/* Text-free artwork is framed consistently inside every catalogue card. */
+.catalog-art{
+  border-radius:5px;
+  margin:0;
+}
+.catalog-card{border-radius:6px}
+
+/* Small-tool and project-directory artwork is always square and text-free. */
+.tool-chip img,.directory-card img{
+  aspect-ratio:1/1;
+  object-fit:cover;
+  border-radius:3px;
+}
+
+@media(max-width:760px){
+  .catalog-copy{
+    grid-template-rows:auto auto auto auto;
+  }
+  .catalog-copy .eyebrow,.catalog-copy h3,.catalog-copy p{
+    height:auto;
+    min-height:0;
+    overflow:visible;
+  }
+}
+
+
+/* Keep my.* access headings readable beside their explanatory copy. */
+.project-access-strip{
+  grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);
+  gap:42px;
+}
+.project-access-strip h2{
+  max-width:none;
+  font-size:clamp(1.55rem,2.25vw,2.15rem);
+  line-height:1.12;
+}
+.project-access-strip h2 code{
+  display:block;
+  margin-top:.28rem;
+  font-size:.9em;
+  line-height:1.08;
+  white-space:normal;
+  overflow-wrap:anywhere;
+  word-break:normal;
+}
+.project-access-strip>div{min-width:0}
+
+@media(max-width:900px){
+  .project-access-strip{
+    grid-template-columns:1fr;
+    gap:22px;
+  }
+  .project-access-strip h2 code{
+    overflow-wrap:normal;
+  }
+}
+
+
+/* Final my.* access layout: the address owns a full row, so long project domains never
+   compete horizontally with the explanatory copy. */
+.project-access-strip{
+  display:block;
+  max-width:980px;
+  margin:0 auto 28px;
+  padding:30px 32px;
+}
+.project-access-strip>div:first-child{
+  min-width:0;
+  margin-bottom:22px;
+}
+.project-access-strip>div:first-child .eyebrow{
+  display:block;
+  margin-bottom:8px;
+}
+.project-access-strip h2{
+  margin:0;
+  max-width:none;
+  font-size:clamp(1.65rem,2.7vw,2.55rem);
+  line-height:1.1;
+}
+.project-access-strip h2 code{
+  display:inline;
+  margin:0;
+  font-size:.9em;
+  white-space:nowrap;
+  overflow-wrap:normal;
+}
+.project-access-strip>div:nth-child(2){
+  min-width:0;
+  padding-top:22px;
+  border-top:1px solid var(--line);
+  max-width:850px;
+}
+.project-access-strip>div:nth-child(2) p{
+  max-width:820px;
+}
+@media(max-width:620px){
+  .project-access-strip{padding:24px 22px}
+  .project-access-strip h2 code{
+    white-space:normal;
+    overflow-wrap:anywhere;
+  }
+}
+
+
+/* Gantry hero: edge-to-edge artwork with a separately composed taller mobile banner. */
+.hero-art{
+  border:0 !important;
+  background:transparent;
+}
+.hero-art picture,
+.hero-art img{
+  display:block;
+  width:100%;
+}
+.hero-art img{
+  height:auto;
+  object-fit:contain;
+}
+@media(max-width:760px){
+  .hero-art{
+    border:0 !important;
+    background:transparent;
+  }
+  .hero-art img{
+    width:100%;
+    height:auto;
+    object-fit:contain;
+  }
+}
