@@ -29,6 +29,7 @@
     "public/assets/images/badges/pict.webp",
     "public/assets/images/badges/trestle.webp",
     "public/assets/images/badges/tscc.webp",
+    "public/assets/images/badges/vantage.webp",
     "public/assets/images/badges/warden.webp",
     "public/assets/images/badges/watchpost.webp",
     "public/assets/images/badges/webfleet.webp",
@@ -45,6 +46,7 @@
     "public/projects/pict.html",
     "public/projects/trestle.html",
     "public/projects/tscc.html",
+    "public/projects/vantage.html",
     "public/projects/warden.html",
     "public/projects/watchpost.html",
     "public/projects/webfleet.html"

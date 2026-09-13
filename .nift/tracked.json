@@ -66,6 +66,11 @@
       "template": "templates/template.html"
     },
     {
+      "name": "projects/vantage",
+      "title": "Vantage Browser",
+      "template": "templates/template.html"
+    },
+    {
       "name": "projects/index",
       "title": "index",
       "template": "templates/template.html"

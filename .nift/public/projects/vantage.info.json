@@ -1,0 +1,32 @@
+{
+  "name": "projects/vantage",
+  "title": "Vantage Browser",
+  "template": "templates/template.html",
+  "content": "content/projects/vantage.html",
+  "output": "public/projects/vantage.html",
+  "minify": false,
+  "minify-version": 0,
+  "pagination": false,
+  "pagination-items-per-page": 0,
+  "pagination-template": "",
+  "pagination-separator": "",
+  "pagination-pages": 0,
+  "dependencies": [
+    "content/projects/vantage.html",
+    "templates/footer.html",
+    "templates/head.html",
+    "templates/header.html",
+    "templates/template.html"
+  ],
+  "reqs": [
+    "public/assets/css/site.css",
+    "public/assets/images/banners/vantage.webp",
+    "public/docs/index.html",
+    "public/favicon.svg",
+    "public/index.html",
+    "public/projects/index.html",
+    "public/projects/nift.html",
+    "public/projects/pict.html",
+    "public/projects/webfleet.html"
+  ]
+}
