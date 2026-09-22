@@ -558,3 +558,36 @@ body{background:var(--bg)}
     object-fit:contain;
   }
 }
+
+/* Home benefit marks: distinct, quiet icons rather than repeated glyphs. */
+.home-benefits .benefit-icon{
+  width:30px;
+  height:30px;
+  display:grid;
+  place-items:center;
+  color:var(--green);
+}
+.home-benefits .benefit-icon svg{
+  width:24px;
+  height:24px;
+  fill:none;
+  stroke:currentColor;
+  stroke-width:1.8;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+
+/* On phones, keep featured cards compact and let the page breathe. */
+@media(max-width:760px){
+  .catalog-grid{justify-items:center}
+  .catalog-card{
+    width:80%;
+    max-width:100%;
+    grid-template-columns:1fr;
+  }
+  .catalog-art{
+    width:100%;
+    border-right:0;
+    border-bottom:1px solid var(--line);
+  }
+}
