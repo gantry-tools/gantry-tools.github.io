@@ -11,6 +11,11 @@
       "template": "templates/template.html"
     },
     {
+      "name": "projects/strut",
+      "title": "Strut",
+      "template": "templates/template.html"
+    },
+    {
       "name": "projects/cortex",
       "title": "Cortex",
       "template": "templates/template.html"
