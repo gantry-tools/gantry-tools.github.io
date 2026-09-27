@@ -1,0 +1,35 @@
+{
+  "name": "projects/strut",
+  "title": "Strut",
+  "template": "templates/template.html",
+  "content": "content/projects/strut.html",
+  "output": "public/projects/strut.html",
+  "minify": false,
+  "minify-version": 0,
+  "pagination": false,
+  "pagination-items-per-page": 0,
+  "pagination-template": "",
+  "pagination-separator": "",
+  "pagination-pages": 0,
+  "project-fingerprint": "",
+  "hierarchy-fingerprint": "",
+  "dependencies": [
+    "content/projects/strut.html",
+    "templates/footer.html",
+    "templates/head.html",
+    "templates/header.html",
+    "templates/template.html"
+  ],
+  "reqs": [
+    "public/assets/css/site.css",
+    "public/assets/images/banners/strut.webp",
+    "public/docs/index.html",
+    "public/docs/my-access.html",
+    "public/favicon.svg",
+    "public/index.html",
+    "public/projects/cortex.html",
+    "public/projects/index.html",
+    "public/projects/nift.html",
+    "public/projects/warden.html"
+  ]
+}
