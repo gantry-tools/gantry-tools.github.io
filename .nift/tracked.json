@@ -26,6 +26,11 @@
       "template": "templates/template.html"
     },
     {
+      "name": "projects/switchyard",
+      "title": "Switchyard",
+      "template": "templates/template.html"
+    },
+    {
       "name": "projects/trestle",
       "title": "Trestle",
       "template": "templates/template.html"

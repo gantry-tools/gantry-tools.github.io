@@ -1,0 +1,35 @@
+{
+  "name": "projects/switchyard",
+  "title": "Switchyard",
+  "template": "templates/template.html",
+  "content": "content/projects/switchyard.html",
+  "output": "public/projects/switchyard.html",
+  "minify": false,
+  "minify-version": 0,
+  "pagination": false,
+  "pagination-items-per-page": 0,
+  "pagination-template": "",
+  "pagination-separator": "",
+  "pagination-pages": 0,
+  "project-fingerprint": "",
+  "hierarchy-fingerprint": "",
+  "dependencies": [
+    "content/projects/switchyard.html",
+    "templates/footer.html",
+    "templates/head.html",
+    "templates/header.html",
+    "templates/template.html"
+  ],
+  "reqs": [
+    "public/assets/css/site.css",
+    "public/assets/images/banners/switchyard.webp",
+    "public/docs/index.html",
+    "public/favicon.svg",
+    "public/index.html",
+    "public/projects/index.html",
+    "public/projects/nift.html",
+    "public/projects/strut.html",
+    "public/projects/trestle.html",
+    "public/projects/warden.html"
+  ]
+}
